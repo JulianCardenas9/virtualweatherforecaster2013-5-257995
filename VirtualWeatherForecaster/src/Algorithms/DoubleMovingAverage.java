@@ -46,16 +46,10 @@ public class DoubleMovingAverage {
                     last.remove(0);
                     last.add(total);
                     mprime += total;
-                    System.out.println("last "+last);
-                    System.out.println("mprime "+mprime);
-                    //last.add(total);
                 }
                 mprime = mprime/t;
                 a = 2*m-mprime;
                 b = (2/(t-1))*(m-mprime);
-                System.out.println("mprime "+mprime);
-                System.out.println("a "+a);
-                System.out.println("b "+b);
                 last.remove(0);
                 last.add(a+b*days);
                 lstForecast.add(a+b*days);
