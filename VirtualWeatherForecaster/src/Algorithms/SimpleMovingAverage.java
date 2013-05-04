@@ -41,4 +41,9 @@ public class SimpleMovingAverage {
         }
         return lstForecast;
     }
+    
+    public static ArrayList<Double> GetError(ArrayList<Double> lastDays, int days ){
+        ArrayList<Double> lstForecast = new ArrayList<Double>();
+        return lstForecast;
+    }
 }
