@@ -11,9 +11,11 @@ import java.util.ArrayList;
  */
 public class DoubleMovingAverage {
     
-    public static ArrayList<Double> Get(ArrayList<Double> last, int days ){
+    public static ArrayList<Double> Get(ArrayList<Double> lastDays, int days ){
         
         ArrayList<Double> lstForecast = new ArrayList<>();
+        ArrayList<Double> last = (ArrayList) lastDays.clone();
+       
         double m = 0;
         double mprime = 0;
         double total = 0;
@@ -40,14 +42,21 @@ public class DoubleMovingAverage {
                         m = total/t;
                     }
                     
-                    mprime += total/t;
-                    t--;
-                    //lstForecast.add(total);
+                    total = total/t; 
+                    last.remove(0);
+                    last.add(total);
+                    mprime += total;
+                    System.out.println("last "+last);
+                    System.out.println("mprime "+mprime);
+                    //last.add(total);
                 }
                 mprime = mprime/t;
                 a = 2*m-mprime;
                 b = (2/(t-1))*(m-mprime);
-                
+                System.out.println("mprime "+mprime);
+                System.out.println("a "+a);
+                System.out.println("b "+b);
+                last.remove(0);
                 last.add(a+b*days);
                 lstForecast.add(a+b*days);
             }
