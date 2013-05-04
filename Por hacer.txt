@@ -1,0 +1,7 @@
+Lo que falte por hacer en el forecaster
+
+Interfaz
+SMA
+DMA
+ES
+DES
