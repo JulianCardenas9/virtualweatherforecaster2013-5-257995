@@ -10,13 +10,14 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Juancho
+ * @author Fabian Moreno
  */
 public class SimpleMovingAverage {
     
-    public static ArrayList<Double> Get(ArrayList<Double> last, int days ){
+    public static ArrayList<Double> Get(ArrayList<Double> lastDays, int days ){
         
         ArrayList<Double> lstForecast = new ArrayList<Double>();
+        ArrayList<Double> last = (ArrayList) lastDays.clone();
         
         for(int j=0;j<days;j++)
         {
@@ -33,6 +34,7 @@ public class SimpleMovingAverage {
                 }
 
                 total = total/t;
+                last.remove(0);
                 last.add(total);
                 lstForecast.add(total);
             }

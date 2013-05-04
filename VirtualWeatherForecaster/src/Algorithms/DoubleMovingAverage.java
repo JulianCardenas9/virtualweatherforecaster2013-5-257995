@@ -4,10 +4,18 @@
  */
 package Algorithms;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Juancho
  */
 public class DoubleMovingAverage {
-    
+     public static ArrayList<Double> Get(ArrayList<Double> last, int days ){
+        
+        ArrayList<Double> lstForecast = new ArrayList<Double>();
+        
+        
+        return lstForecast;
+    }
 }

@@ -5,6 +5,12 @@
 package Interfaz;
 
 import java.util.Calendar;
+import Algorithms.WeatherForecaster;
+import Algorithms.SimpleMovingAverage;
+import Algorithms.DoubleMovingAverage;
+import Algorithms.DoubleExponentialSmoothing;
+import Algorithms.DoubleMovingAverage;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,17 +18,18 @@ import java.util.Calendar;
  */
 public class InterfazInicial extends javax.swing.JDialog {
 
+    private ArrayList<Double> lstDays = new ArrayList<Double>();
+    private ArrayList<Double> lstForecaster = new ArrayList<Double>();
+    
     /**
      * Creates new form InterfazInicial
      */
    public InterfazInicial(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setLocation(500, 200);
-        Calendar fecha = Calendar.getInstance();
         initComponents();
-        textAreaOutput.setText("Current Date: "+fecha.get(Calendar.DATE)
-                                          +"/"+(fecha.get(Calendar.MONTH)+1)
-                                          +"/"+fecha.get(Calendar.YEAR));
+        renderOutput();
+        
     }
 
     /**
@@ -36,14 +43,14 @@ public class InterfazInicial extends javax.swing.JDialog {
 
         labelWeatherReport = new javax.swing.JLabel();
         labelValuestoForecast = new javax.swing.JLabel();
-        textFieldWeatherReport = new javax.swing.JTextField();
-        textFieldValuestoForecast = new javax.swing.JTextField();
+        txtValue = new javax.swing.JTextField();
+        txtForecast = new javax.swing.JTextField();
         buttonAddReport = new javax.swing.JButton();
         buttonDeleteLast = new javax.swing.JButton();
         buttonDeleteAll = new javax.swing.JButton();
-        buttonForecast = new javax.swing.JButton();
+        btnForecast = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        textAreaOutput = new javax.swing.JTextArea();
+        txtLast = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,16 +58,16 @@ public class InterfazInicial extends javax.swing.JDialog {
 
         labelValuestoForecast.setText("Values to Forecast");
 
-        textFieldWeatherReport.addActionListener(new java.awt.event.ActionListener() {
+        txtValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldWeatherReportActionPerformed(evt);
+                txtValueActionPerformed(evt);
             }
         });
 
-        textFieldValuestoForecast.setText("0");
-        textFieldValuestoForecast.addActionListener(new java.awt.event.ActionListener() {
+        txtForecast.setText("0");
+        txtForecast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldValuestoForecastActionPerformed(evt);
+                txtForecastActionPerformed(evt);
             }
         });
 
@@ -75,13 +82,18 @@ public class InterfazInicial extends javax.swing.JDialog {
 
         buttonDeleteAll.setText("Delete All");
 
-        buttonForecast.setText("Forecast");
+        btnForecast.setText("Forecast");
+        btnForecast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForecastActionPerformed(evt);
+            }
+        });
 
-        textAreaOutput.setEditable(false);
-        textAreaOutput.setColumns(20);
-        textAreaOutput.setRows(5);
-        textAreaOutput.setText("Current Data:");
-        jScrollPane1.setViewportView(textAreaOutput);
+        txtLast.setEditable(false);
+        txtLast.setColumns(20);
+        txtLast.setRows(5);
+        txtLast.setText("Current Data:");
+        jScrollPane1.setViewportView(txtLast);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,19 +107,19 @@ public class InterfazInicial extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelWeatherReport)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textFieldWeatherReport, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelValuestoForecast)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textFieldValuestoForecast, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtForecast, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                                 .addComponent(buttonAddReport)
                                 .addGap(34, 34, 34)
                                 .addComponent(buttonDeleteLast)
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonForecast)
+                                    .addComponent(btnForecast)
                                     .addComponent(buttonDeleteAll)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -120,38 +132,83 @@ public class InterfazInicial extends javax.swing.JDialog {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelWeatherReport)
-                    .addComponent(textFieldWeatherReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelValuestoForecast)
-                    .addComponent(textFieldValuestoForecast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtForecast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAddReport)
                     .addComponent(buttonDeleteLast)
                     .addComponent(buttonDeleteAll))
                 .addGap(18, 18, 18)
-                .addComponent(buttonForecast)
+                .addComponent(btnForecast)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldWeatherReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldWeatherReportActionPerformed
+    private void txtValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldWeatherReportActionPerformed
+    }//GEN-LAST:event_txtValueActionPerformed
 
-    private void textFieldValuestoForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldValuestoForecastActionPerformed
+    private void txtForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtForecastActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldValuestoForecastActionPerformed
+    }//GEN-LAST:event_txtForecastActionPerformed
 
     private void buttonAddReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddReportActionPerformed
-        // TODO add your handling code here:
+        
+        double value = Double.parseDouble(txtValue.getText());
+        lstDays.add(value);
+        txtValue.setText("");
+        lstForecaster = new ArrayList<Double>();
+        renderOutput();
     }//GEN-LAST:event_buttonAddReportActionPerformed
 
+    private void btnForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForecastActionPerformed
+
+        int days = Integer.parseInt(txtForecast.getText());
+        Algorithms.WeatherForecaster weatherForecaster = new Algorithms.WeatherForecaster();
+        lstForecaster = weatherForecaster.Get(lstDays, days);
+        
+        renderOutput();
+    }//GEN-LAST:event_btnForecastActionPerformed
+
+    private void renderOutput(){
+        Calendar fecha = Calendar.getInstance();
+        String msg = "Current Date: "+fecha.get(Calendar.DATE)
+                                          +"/"+(fecha.get(Calendar.MONTH)+1)
+                                          +"/"+fecha.get(Calendar.YEAR);
+        
+        //muestra las valores ingresados
+        if(lstDays.size()>0)
+        {
+            msg += "\n\n------------------------------------"+
+                   "\n\nDias Anteriores \n";
+            
+            for (int i = 0; i < lstDays.size(); i++) {
+                msg += lstDays.get(i) + "\n";    
+            }
+        }
+        
+        //muestra el pronostico
+        if(lstForecaster.size()>0)
+        {
+            msg += "\n\n------------------------------------"+
+                   "\n\nPronostico \n";
+            
+            for (int i = 0; i < lstForecaster.size(); i++) {
+                msg += lstForecaster.get(i) + "\n";    
+            }
+        }
+        
+        txtLast.setText(msg);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -194,15 +251,15 @@ public class InterfazInicial extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnForecast;
     private javax.swing.JButton buttonAddReport;
     private javax.swing.JButton buttonDeleteAll;
     private javax.swing.JButton buttonDeleteLast;
-    private javax.swing.JButton buttonForecast;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelValuestoForecast;
     private javax.swing.JLabel labelWeatherReport;
-    private javax.swing.JTextArea textAreaOutput;
-    private javax.swing.JTextField textFieldValuestoForecast;
-    private javax.swing.JTextField textFieldWeatherReport;
+    private javax.swing.JTextField txtForecast;
+    private javax.swing.JTextArea txtLast;
+    private javax.swing.JTextField txtValue;
     // End of variables declaration//GEN-END:variables
 }
