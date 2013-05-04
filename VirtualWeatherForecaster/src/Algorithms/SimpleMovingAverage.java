@@ -3,8 +3,6 @@
  * and open the template in the editor.
  */
 package Algorithms;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ArrayList;
 
 
@@ -16,18 +14,19 @@ public class SimpleMovingAverage {
     
     public static ArrayList<Double> Get(ArrayList<Double> last, int days ){
         
-        ArrayList<Double> lstForecast = new ArrayList<Double>();
+        ArrayList<Double> lstForecast = new ArrayList<>();
         
-        for(int j=0;j<days;j++)
+        double total;
+        
+        for(int j=0; j<days; j++)
         {
             int t=last.size();
-            
-            //si la lista contiene elementos
-            if(t>0)
+            //Si la lista contiene elementos
+            if(t > 0)
             {
-                double total = 0;
+                total = 0;
 
-                for(int i=0 ; i < t; i++)
+                for(int i=0; i<t; i++)
                 {
                     total += last.get(i);
                 }
