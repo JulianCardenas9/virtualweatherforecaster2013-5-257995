@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class SimpleMovingAverage {
     
-    public static ArrayList<Double> Get(ArrayList<Double> lastDays, int days ){
+    public static ArrayList<Double> List(ArrayList<Double> lastDays, int days ){
         
         ArrayList<Double> lstForecast = new ArrayList<Double>();
         ArrayList<Double> last = (ArrayList) lastDays.clone();
@@ -26,14 +26,8 @@ public class SimpleMovingAverage {
             //si la lista contiene elementos
             if(t>0)
             {
-                double total = 0;
+                double total = Get(last);
 
-                for(int i=0 ; i < t; i++)
-                {
-                    total += last.get(i);
-                }
-
-                total = total/t;
                 last.remove(0);
                 last.add(total);
                 lstForecast.add(total);
@@ -42,8 +36,29 @@ public class SimpleMovingAverage {
         return lstForecast;
     }
     
-    public static ArrayList<Double> GetError(ArrayList<Double> lastDays, int days ){
-        ArrayList<Double> lstForecast = new ArrayList<Double>();
-        return lstForecast;
+    private static Double Get(ArrayList<Double> last){
+        double total = 0;
+        int t = last.size();
+        
+        for(int i=0 ; i < t; i++)
+        {
+            total += last.get(i);
+        }
+        
+        return total/t;
+    }
+    
+    public static Double GetError(ArrayList<Double> lastDays, int days ){
+     //   ArrayList<Double> lstForecast = new ArrayList<Double>();
+        
+        double error = 0;
+        int t = lastDays.size();
+        /*
+        for(int i=0 ; i < t; i++)
+        {
+            error += Math.abs(Get ) last.get(i);
+        }*/
+        
+        return error;
     }
 }
