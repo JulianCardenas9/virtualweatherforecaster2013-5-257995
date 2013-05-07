@@ -15,7 +15,7 @@ public class WeatherForecaster {
     public ArrayList<Double> Get(ArrayList<Double> last, int days ){
         
         // calcular SimpleMovingAverage
-        ArrayList<Double> lstSimpleMovingAverage = SimpleMovingAverage.Get(last, days);
+        ArrayList<Double> lstSimpleMovingAverage = SimpleMovingAverage.List(last, days);
         
         // calcular DoubleMovingAverage
         ArrayList<Double> lstDoubleMovingAverage = DoubleMovingAverage.Get(last, days);
