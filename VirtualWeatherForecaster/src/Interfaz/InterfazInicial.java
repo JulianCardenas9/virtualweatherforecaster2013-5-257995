@@ -29,7 +29,6 @@ public class InterfazInicial extends javax.swing.JDialog {
         this.setLocation(500, 200);
         initComponents();
         renderOutput();
-        unidad.setText("C°");
         
     }
 
@@ -42,40 +41,44 @@ public class InterfazInicial extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        labelWeatherReport = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         labelValuestoForecast = new javax.swing.JLabel();
-        txtValue = new javax.swing.JTextField();
-        txtForecast = new javax.swing.JTextField();
-        buttonAddReport = new javax.swing.JButton();
-        buttonDeleteLast = new javax.swing.JButton();
-        buttonDeleteAll = new javax.swing.JButton();
-        btnForecast = new javax.swing.JButton();
+        labelWeatherReport = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtLast = new javax.swing.JTextArea();
+        btnDeleteLast = new javax.swing.JButton();
+        buttonAddReport = new javax.swing.JButton();
+        txtForecast = new javax.swing.JTextField();
+        txtValue = new javax.swing.JTextField();
+        btnForecast = new javax.swing.JButton();
+        btnDeleteAll = new javax.swing.JButton();
+        labelWeatherReport1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        unidad = new javax.swing.JLabel();
+        labelValuestoForecast1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        labelWeatherReport.setText("Weather Report");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        labelValuestoForecast.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         labelValuestoForecast.setText("Values to Forecast");
 
-        txtValue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValueActionPerformed(evt);
-            }
-        });
+        labelWeatherReport.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        labelWeatherReport.setText("Weather Report");
 
-        txtForecast.setText("0");
-        txtForecast.addActionListener(new java.awt.event.ActionListener() {
+        txtLast.setEditable(false);
+        txtLast.setColumns(20);
+        txtLast.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        txtLast.setRows(5);
+        txtLast.setText("Current Data:");
+        jScrollPane1.setViewportView(txtLast);
+
+        btnDeleteLast.setText("Delete Last");
+        btnDeleteLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtForecastActionPerformed(evt);
+                btnDeleteLastActionPerformed(evt);
             }
         });
 
@@ -86,9 +89,20 @@ public class InterfazInicial extends javax.swing.JDialog {
             }
         });
 
-        buttonDeleteLast.setText("Delete Last");
+        txtForecast.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        txtForecast.setText("1");
+        txtForecast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtForecastActionPerformed(evt);
+            }
+        });
 
-        buttonDeleteAll.setText("Delete All");
+        txtValue.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        txtValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValueActionPerformed(evt);
+            }
+        });
 
         btnForecast.setText("Forecast");
         btnForecast.addActionListener(new java.awt.event.ActionListener() {
@@ -97,115 +111,107 @@ public class InterfazInicial extends javax.swing.JDialog {
             }
         });
 
-        txtLast.setColumns(20);
-        txtLast.setEditable(false);
-        txtLast.setRows(5);
-        txtLast.setText("Current Data:");
-        jScrollPane1.setViewportView(txtLast);
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("C°");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteAll.setText("Delete All");
+        btnDeleteAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                btnDeleteAllActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("K°");
-        jRadioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
+        labelWeatherReport1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelWeatherReport1.setText("Weather Forecast Application");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("F°");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
+        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("°C");
 
-        jLabel1.setText("Vistual Weather Forecaster");
+        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton2.setText("°F");
+
+        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton3.setText("°K");
+
+        labelValuestoForecast1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        labelValuestoForecast1.setText("Unit");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(labelWeatherReport1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnForecast))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelWeatherReport)
+                            .addComponent(labelValuestoForecast)
+                            .addComponent(labelValuestoForecast1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton3)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtForecast)
+                            .addComponent(txtValue)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(buttonAddReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteLast)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteAll)))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelWeatherReport1)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelWeatherReport)
+                    .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelValuestoForecast)
+                    .addComponent(txtForecast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAddReport)
+                    .addComponent(btnDeleteLast)
+                    .addComponent(btnDeleteAll))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3)
+                    .addComponent(labelValuestoForecast1))
+                .addGap(6, 6, 6)
+                .addComponent(btnForecast)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(214, 214, 214)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(labelValuestoForecast)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtForecast, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(labelWeatherReport)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(buttonAddReport)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(buttonDeleteLast)
-                                        .addGap(30, 30, 30)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnForecast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(buttonDeleteAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addGap(21, 21, 21))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(unidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
-                        .addComponent(jLabel1)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelWeatherReport)
-                            .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelValuestoForecast)
-                            .addComponent(txtForecast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddReport)
-                            .addComponent(buttonDeleteLast)
-                            .addComponent(buttonDeleteAll))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnForecast)
-                        .addGap(3, 3, 3))
-                    .addComponent(unidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)))
-                .addGap(26, 26, 26))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -237,21 +243,8 @@ public class InterfazInicial extends javax.swing.JDialog {
         renderOutput();
     }//GEN-LAST:event_btnForecastActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-      unidad.setText("F°");  // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-       unidad.setText("K°"); // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-       unidad.setText("C°"); // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
     private void renderOutput(){
         Calendar fecha = Calendar.getInstance();
-        int count=0;
         String msg = "Current Date: "+fecha.get(Calendar.DATE)
                                           +"/"+(fecha.get(Calendar.MONTH)+1)
                                           +"/"+fecha.get(Calendar.YEAR);
@@ -260,10 +253,10 @@ public class InterfazInicial extends javax.swing.JDialog {
         if(lstDays.size()>0)
         {
             msg += "\n\n------------------------------------"+
-                  "\n\nDias Anteriores \n";
+                   "\n\nDias Anteriores \n";
             
             for (int i = 0; i < lstDays.size(); i++) {
-                msg +=  lstDays.get(i) + "\n";    
+                msg += lstDays.get(i) + "\n";    
             }
         }
         
@@ -272,14 +265,9 @@ public class InterfazInicial extends javax.swing.JDialog {
         {
             msg += "\n\n------------------------------------"+
                    "\n\nPronostico \n";
-            int dia= fecha.get(Calendar.DATE);
+            
             for (int i = 0; i < lstForecaster.size(); i++) {
-                count++;
-                
-                msg += dia
-                  +"/"+(fecha.get(Calendar.MONTH )+1)
-                   +"/"+fecha.get(Calendar.YEAR) +"   : "+ lstForecaster.get(i) + "\n";    
-            dia++;
+                msg += lstForecaster.get(i) + "\n";    
             }
         }
         
@@ -328,21 +316,21 @@ public class InterfazInicial extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeleteAll;
+    private javax.swing.JButton btnDeleteLast;
     private javax.swing.JButton btnForecast;
     private javax.swing.JButton buttonAddReport;
-    private javax.swing.JButton buttonDeleteAll;
-    private javax.swing.JButton buttonDeleteLast;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelValuestoForecast;
+    private javax.swing.JLabel labelValuestoForecast1;
     private javax.swing.JLabel labelWeatherReport;
+    private javax.swing.JLabel labelWeatherReport1;
     private javax.swing.JTextField txtForecast;
     private javax.swing.JTextArea txtLast;
     private javax.swing.JTextField txtValue;
-    private javax.swing.JLabel unidad;
     // End of variables declaration//GEN-END:variables
 }
