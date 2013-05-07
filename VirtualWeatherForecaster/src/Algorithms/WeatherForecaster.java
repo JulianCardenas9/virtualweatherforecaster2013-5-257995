@@ -22,8 +22,10 @@ public class WeatherForecaster {
         // calcular DoubleMovingAverage 
         ArrayList<Double> lstExponentialSmoothing = ExponentialSmoothing.Get(last,days);
         
+        ArrayList<Double> lstDoubleExponentialSmoothing = DoubleExponentialSmoothing.Get(last,days);
         
-        return lstExponentialSmoothing;
+        //return lstExponentialSmoothing;
         //return lstDoubleMovingAverage;
+        return lstDoubleExponentialSmoothing;
     }
 }
