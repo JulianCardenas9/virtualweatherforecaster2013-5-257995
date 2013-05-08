@@ -20,16 +20,16 @@ public class InterfazInicial extends javax.swing.JDialog {
 
     private ArrayList<Double> lstDays = new ArrayList<Double>();
     private ArrayList<Double> lstForecaster = new ArrayList<Double>();
-    
+
     /**
      * Creates new form InterfazInicial
      */
-   public InterfazInicial(java.awt.Frame parent, boolean modal) {
+    public InterfazInicial(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setLocation(500, 200);
         initComponents();
         renderOutput();
-        
+
     }
 
     /**
@@ -226,7 +226,7 @@ public class InterfazInicial extends javax.swing.JDialog {
     }//GEN-LAST:event_txtForecastActionPerformed
 
     private void buttonAddReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddReportActionPerformed
-        
+
         double value = Double.parseDouble(txtValue.getText());
         lstDays.add(value);
         txtValue.setText("");
@@ -239,41 +239,52 @@ public class InterfazInicial extends javax.swing.JDialog {
         int days = Integer.parseInt(txtForecast.getText());
         Algorithms.WeatherForecaster weatherForecaster = new Algorithms.WeatherForecaster();
         lstForecaster = weatherForecaster.Get(lstDays, days);
-        
         renderOutput();
     }//GEN-LAST:event_btnForecastActionPerformed
 
-    private void renderOutput(){
+    private void btnDeleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLastActionPerformed
+        // TODO add your handling code here:
+        lstDays.remove(lstDays.size()-1);
+        renderOutput();
+    }//GEN-LAST:event_btnDeleteLastActionPerformed
+
+    private void btnDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAllActionPerformed
+        // TODO add your handling code here:
+        for (int i = lstDays.size()-1; i >= 0; i--) {
+            lstDays.remove(i);
+        }
+        renderOutput();
+    }//GEN-LAST:event_btnDeleteAllActionPerformed
+
+    private void renderOutput() {
         Calendar fecha = Calendar.getInstance();
-        String msg = "Current Date: "+fecha.get(Calendar.DATE)
-                                          +"/"+(fecha.get(Calendar.MONTH)+1)
-                                          +"/"+fecha.get(Calendar.YEAR);
-        
+        String msg = "Current Date: " + fecha.get(Calendar.DATE)
+                + "/" + (fecha.get(Calendar.MONTH) + 1)
+                + "/" + fecha.get(Calendar.YEAR);
+
         //muestra las valores ingresados
-        if(lstDays.size()>0)
-        {
-            msg += "\n\n------------------------------------"+
-                   "\n\nDias Anteriores \n";
-            
+        if (lstDays.size() > 0) {
+            msg += "\n\n------------------------------------"
+                    + "\n\nDias Anteriores \n";
+
             for (int i = 0; i < lstDays.size(); i++) {
-                msg += lstDays.get(i) + "\n";    
+                msg += lstDays.get(i) + "\n";
             }
         }
-        
+
         //muestra el pronostico
-        if(lstForecaster.size()>0)
-        {
-            msg += "\n\n------------------------------------"+
-                   "\n\nPronostico \n";
-            
+        if (lstForecaster.size() > 0) {
+            msg += "\n\n------------------------------------"
+                    + "\n\nPronostico \n";
+
             for (int i = 0; i < lstForecaster.size(); i++) {
-                msg += lstForecaster.get(i) + "\n";    
+                msg += lstForecaster.get(i) + "\n";
             }
         }
-        
+
         txtLast.setText(msg);
     }
-    
+
     /**
      * @param args the command line arguments
      */
