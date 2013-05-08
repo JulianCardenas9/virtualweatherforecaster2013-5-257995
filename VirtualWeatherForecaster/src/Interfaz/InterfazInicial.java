@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaz;
 
 import java.util.Calendar;
@@ -14,12 +10,13 @@ import java.util.ArrayList;
 
 /**
  *
- * @author user
+ * @author group 5
  */
 public class InterfazInicial extends javax.swing.JDialog {
 
     private ArrayList<Double> lstDays = new ArrayList<Double>();
     private ArrayList<Double> lstForecaster = new ArrayList<Double>();
+    double error=0;
 
     /**
      * Creates new form InterfazInicial
@@ -224,30 +221,39 @@ public class InterfazInicial extends javax.swing.JDialog {
     private void txtForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtForecastActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtForecastActionPerformed
-
+/*
+ * create two list, days, and forecaster each time is called, 
+ * so, forecaster is empty each time the user insert a new value
+ */
     private void buttonAddReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddReportActionPerformed
-
         double value = Double.parseDouble(txtValue.getText());
         lstDays.add(value);
         txtValue.setText("");
         lstForecaster = new ArrayList<Double>();
         renderOutput();
     }//GEN-LAST:event_buttonAddReportActionPerformed
-
+/*
+ * analize all days with all algoritms and retunr a list with the less error
+ */
     private void btnForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForecastActionPerformed
 
         int days = Integer.parseInt(txtForecast.getText());
         Algorithms.WeatherForecaster weatherForecaster = new Algorithms.WeatherForecaster();
         lstForecaster = weatherForecaster.Get(lstDays, days);
+        error=weatherForecaster.getError();
         renderOutput();
     }//GEN-LAST:event_btnForecastActionPerformed
-
+/*
+ * delete the last value inserted by the user
+ */
     private void btnDeleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLastActionPerformed
         // TODO add your handling code here:
         lstDays.remove(lstDays.size()-1);
         renderOutput();
     }//GEN-LAST:event_btnDeleteLastActionPerformed
-
+/*
+ * delete all values inserted by the user
+ */
     private void btnDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAllActionPerformed
         // TODO add your handling code here:
         for (int i = lstDays.size()-1; i >= 0; i--) {
@@ -255,7 +261,10 @@ public class InterfazInicial extends javax.swing.JDialog {
         }
         renderOutput();
     }//GEN-LAST:event_btnDeleteAllActionPerformed
-
+/*
+ * render all acctions to user could see the list or results of forecasting
+ * replace the text each time is called. 
+ */
     private void renderOutput() {
         Calendar fecha = Calendar.getInstance();
         String msg = "Current Date: " + fecha.get(Calendar.DATE)
@@ -275,7 +284,7 @@ public class InterfazInicial extends javax.swing.JDialog {
         //muestra el pronostico
         if (lstForecaster.size() > 0) {
             msg += "\n\n------------------------------------"
-                    + "\n\nPronostico \n";
+                    + "\n\nPronostico \n"+"\n\nError: \n"+error+"\n";
 
             for (int i = 0; i < lstForecaster.size(); i++) {
                 msg += lstForecaster.get(i) + "\n";
@@ -287,6 +296,7 @@ public class InterfazInicial extends javax.swing.JDialog {
 
     /**
      * @param args the command line arguments
+     * main method
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

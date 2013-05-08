@@ -48,17 +48,5 @@ public class SimpleMovingAverage {
         return total/t;
     }
     
-    public static Double GetError(ArrayList<Double> lastDays, int days ){
-     //   ArrayList<Double> lstForecast = new ArrayList<Double>();
-        
-        double error = 0;
-        int t = lastDays.size();
-        /*
-        for(int i=0 ; i < t; i++)
-        {
-            error += Math.abs(Get ) last.get(i);
-        }*/
-        
-        return error;
-    }
+   
 }
