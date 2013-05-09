@@ -6,7 +6,10 @@ import Algorithms.SimpleMovingAverage;
 import Algorithms.DoubleMovingAverage;
 import Algorithms.DoubleExponentialSmoothing;
 import Algorithms.DoubleMovingAverage;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,9 +29,51 @@ public class InterfazInicial extends javax.swing.JDialog {
         this.setLocation(500, 200);
         initComponents();
         renderOutput();
-
+        addEvents();
     }
 
+    private void addEvents(){
+        txtValue.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) ||
+                (c == KeyEvent.VK_BACK_SPACE) ||
+                (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+        txtForecast.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) ||
+                (c == KeyEvent.VK_BACK_SPACE) ||
+                (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+    }
+    public boolean validateForm(){
+        int size = lstDays.size();
+        int days = Integer.parseInt(txtForecast.getText());
+        
+        if(size < 5)
+        {
+            JOptionPane.showMessageDialog(null,  "Please insert at least 5 previous weather reports","alert", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(days < 0)
+        {
+            JOptionPane.showMessageDialog(null, "Please insert a valid days number", "alert", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +83,10 @@ public class InterfazInicial extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        labelValuestoForecast1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         labelValuestoForecast = new javax.swing.JLabel();
         labelWeatherReport = new javax.swing.JLabel();
@@ -50,10 +99,18 @@ public class InterfazInicial extends javax.swing.JDialog {
         btnForecast = new javax.swing.JButton();
         btnDeleteAll = new javax.swing.JButton();
         labelWeatherReport1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        labelValuestoForecast1 = new javax.swing.JLabel();
+
+        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("°C");
+
+        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton2.setText("°F");
+
+        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButton3.setText("°K");
+
+        labelValuestoForecast1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        labelValuestoForecast1.setText("Unit");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,18 +175,6 @@ public class InterfazInicial extends javax.swing.JDialog {
         labelWeatherReport1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelWeatherReport1.setText("Weather Forecast Application");
 
-        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("°C");
-
-        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("°F");
-
-        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("°K");
-
-        labelValuestoForecast1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        labelValuestoForecast1.setText("Unit");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,17 +193,9 @@ public class InterfazInicial extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelWeatherReport)
-                            .addComponent(labelValuestoForecast)
-                            .addComponent(labelValuestoForecast1))
+                            .addComponent(labelValuestoForecast))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton3)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtForecast)
                             .addComponent(txtValue)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -187,13 +224,7 @@ public class InterfazInicial extends javax.swing.JDialog {
                     .addComponent(buttonAddReport)
                     .addComponent(btnDeleteLast)
                     .addComponent(btnDeleteAll))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(labelValuestoForecast1))
-                .addGap(6, 6, 6)
+                .addGap(37, 37, 37)
                 .addComponent(btnForecast)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,18 +235,21 @@ public class InterfazInicial extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValueActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtValueActionPerformed
 
     private void txtForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtForecastActionPerformed
@@ -226,39 +260,50 @@ public class InterfazInicial extends javax.swing.JDialog {
  * so, forecaster is empty each time the user insert a new value
  */
     private void buttonAddReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddReportActionPerformed
-        double value = Double.parseDouble(txtValue.getText());
-        lstDays.add(value);
-        txtValue.setText("");
-        lstForecaster = new ArrayList<Double>();
-        renderOutput();
+        
+        try{
+            double value = Double.parseDouble(txtValue.getText());
+            lstDays.add(value);
+            txtValue.setText("");
+            lstForecaster = new ArrayList<Double>();
+            renderOutput();
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Please insert a valid weather report", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_buttonAddReportActionPerformed
 /*
  * analize all days with all algoritms and retunr a list with the less error
  */
     private void btnForecastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForecastActionPerformed
 
-        int days = Integer.parseInt(txtForecast.getText());
-        Algorithms.WeatherForecaster weatherForecaster = new Algorithms.WeatherForecaster();
-        lstForecaster = weatherForecaster.Get(lstDays, days);
-        error=weatherForecaster.getError();
-        renderOutput();
+        if(validateForm())
+        {
+            int days = Integer.parseInt(txtForecast.getText());
+            Algorithms.WeatherForecaster weatherForecaster = new Algorithms.WeatherForecaster();
+            lstForecaster = weatherForecaster.Get(lstDays, days);
+            error=weatherForecaster.getError();
+            renderOutput();
+        }
     }//GEN-LAST:event_btnForecastActionPerformed
 /*
  * delete the last value inserted by the user
  */
     private void btnDeleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLastActionPerformed
-        // TODO add your handling code here:
-        lstDays.remove(lstDays.size()-1);
-        renderOutput();
+        
+        if(lstDays.size()>0)
+        {
+            lstDays.remove(lstDays.size()-1);
+            renderOutput();
+        }
     }//GEN-LAST:event_btnDeleteLastActionPerformed
 /*
  * delete all values inserted by the user
  */
     private void btnDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAllActionPerformed
-        // TODO add your handling code here:
-        for (int i = lstDays.size()-1; i >= 0; i--) {
-            lstDays.remove(i);
-        }
+        
+        lstDays = new ArrayList<Double>();
         renderOutput();
     }//GEN-LAST:event_btnDeleteAllActionPerformed
 /*
@@ -273,21 +318,31 @@ public class InterfazInicial extends javax.swing.JDialog {
 
         //muestra las valores ingresados
         if (lstDays.size() > 0) {
-            msg += "\n\n------------------------------------"
-                    + "\n\nDias Anteriores \n";
+            msg += "\n\n"
+                    + "===================================="
+                    + "\nLast Days\n"
+                    + "====================================\n";
 
             for (int i = 0; i < lstDays.size(); i++) {
-                msg += lstDays.get(i) + "\n";
+                 Calendar last = Calendar.getInstance();
+                 last.add(Calendar.DATE, -i);
+                msg +=last.get(Calendar.DATE)+"/"+last.get(Calendar.MONTH)+"/"+last.get(Calendar.YEAR) +" : "+  lstDays.get(i) + " °C\n";
             }
         }
 
         //muestra el pronostico
         if (lstForecaster.size() > 0) {
-            msg += "\n\n------------------------------------"
-                    + "\n\nPronostico \n"+"\n\nError: \n"+error+"\n";
+            msg += "\n"
+                    + "===================================="
+                    + "\nForecasters\n"
+                    + "====================================\n";
+            
+            msg += "\nError: "+error+"\n";
 
             for (int i = 0; i < lstForecaster.size(); i++) {
-                msg += lstForecaster.get(i) + "\n";
+                Calendar last = Calendar.getInstance();
+                last.add(Calendar.DATE, i+1);
+                msg += last.get(Calendar.DATE)+"/"+last.get(Calendar.MONTH)+"/"+last.get(Calendar.YEAR) +" : "+ lstForecaster.get(i) + " °C\n";
             }
         }
 
