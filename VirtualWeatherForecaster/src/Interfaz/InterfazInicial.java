@@ -295,7 +295,8 @@ public class InterfazInicial extends javax.swing.JDialog {
         if(lstDays.size()>0)
         {
             lstDays.remove(lstDays.size()-1);
-            renderOutput();
+            lstForecaster = new ArrayList<>();
+            renderOutput(); 
         }
     }//GEN-LAST:event_btnDeleteLastActionPerformed
 /*
@@ -304,6 +305,7 @@ public class InterfazInicial extends javax.swing.JDialog {
     private void btnDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAllActionPerformed
         
         lstDays = new ArrayList<Double>();
+        lstForecaster = new ArrayList<>();
         renderOutput();
     }//GEN-LAST:event_btnDeleteAllActionPerformed
 /*
