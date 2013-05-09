@@ -16,7 +16,7 @@ public class WeatherForecaster {
             
     public ArrayList<Double> Get(ArrayList<Double> last, int days) {
 
-        ArrayList<Double> lst = null;
+        ArrayList<Double> lst = new ArrayList<>();
         // calculate SimpleMovingAverage
         ArrayList<Double> lstSimpleMovingAverage = SimpleMovingAverage.List(last, days);
         // calculate DoubleMovingAverage
@@ -31,28 +31,28 @@ public class WeatherForecaster {
         double esError = Error.GetError(last, lstExponentialSmoothing, days);
         double desError = Error.GetError(last, lstDoubleExponentialSmoothing, days);
         
-        System.out.println("smaError " + smaError + "::::"+lstDoubleMovingAverage);
+        System.out.println("smaError " + smaError + "::::"+lstSimpleMovingAverage);
         System.out.println("dmaError " + dmaError + "::::"+lstDoubleMovingAverage);
-        System.out.println("esError " + esError + "::::"+lstDoubleMovingAverage);
-        System.out.println("desError " + desError + "::::"+lstDoubleMovingAverage);
+        System.out.println("esError " + esError + "::::"+lstExponentialSmoothing);
+        System.out.println("desError " + desError + "::::"+lstDoubleExponentialSmoothing);
         
         //si sma es el de menor error
-        if(smaError<dmaError && smaError<esError && smaError<desError)
+        if(smaError<=dmaError && smaError<=esError && smaError<=desError)
         {
             lst = lstSimpleMovingAverage;
             error = smaError;
         }
-        else if(dmaError<smaError && dmaError<esError && dmaError<desError)
+        else if(dmaError<=smaError && dmaError<=esError && dmaError<=desError)
         {
             lst = lstDoubleMovingAverage;
             error = dmaError;
         }
-        else if(esError<smaError && esError<dmaError && esError<desError)
+        else if(esError<=smaError && esError<=dmaError && esError<=desError)
         {
             lst = lstExponentialSmoothing;
             error = esError;
         }
-        else if(desError<smaError && desError<dmaError && desError<esError)
+        else 
         {
             lst = lstDoubleExponentialSmoothing;
             error = desError;
