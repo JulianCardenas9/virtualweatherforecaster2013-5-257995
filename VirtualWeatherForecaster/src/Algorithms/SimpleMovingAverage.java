@@ -26,7 +26,7 @@ public class SimpleMovingAverage {
             //si la lista contiene elementos
             if(t>0)
             {
-                double total = Get(last);
+                double total = Get(last, days);
 
                 last.remove(0);
                 last.add(total);
@@ -36,16 +36,15 @@ public class SimpleMovingAverage {
         return lstForecast;
     }
     
-    private static Double Get(ArrayList<Double> last){
+    private static Double Get(ArrayList<Double> last, int days){
         double total = 0;
-        int t = last.size();
         
-        for(int i=0 ; i < t; i++)
+        for(int i=0 ; i < days; i++)
         {
             total += last.get(i);
         }
         
-        return total/t;
+        return total/days;
     }
     
    

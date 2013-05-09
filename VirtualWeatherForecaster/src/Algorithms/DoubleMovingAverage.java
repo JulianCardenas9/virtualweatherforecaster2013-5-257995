@@ -6,8 +6,20 @@ package Algorithms;
 import java.util.ArrayList;
 
 /**
- *
- * @author Juancho
+ * Double Exponencial Smoothing:
+ * 
+ * El algoritmo double exponencial se basa en terminos practicos en aplicar
+ * 2 veces el simple moving average.
+ * 
+ * Sus ecuaciones son las siguientes:
+ * 
+ * Mt = (Yt + Yt-1 + Yt-2 + ... + Yt-N+1)/N
+ * M't = (Mt + Mt-1 + Mt-2 + ... + Mt-N+1)/N
+ * at = 2Mt - M't
+ * bt = (2/(k-1))*(Mt-M't)
+ * Yt+p = at+bt*p
+ * 
+ * @author Nicolas Camelo
  */
 public class DoubleMovingAverage {
     
@@ -22,34 +34,34 @@ public class DoubleMovingAverage {
         double a;
         double b;
         
+        //Pronostico para los siguientes N dias
         for(int k=0; k<days; k++)
         {
-            int t=last.size();
-            
             //Si la lista contiene elementos
-            if(t > 0)
+            if(last.size() > 0)
             {
-                for(int j=0; j<t; j++)
+                //Pronostico para el día k
+                for(int j=0; j<days; j++)
                 {
                     total = 0;
                     
-                    for(int i=0; i<t; i++)
+                    for(int i=0; i<days; i++)
                     {
                         total += last.get(i);
                     }
                     
                     if(j==0){
-                        m = total/t;
+                        m = total/days;
                     }
                     
-                    total = total/t; 
+                    total = total/days; 
                     last.remove(0);
                     last.add(total);
                     mprime += total;
                 }
-                mprime = mprime/t;
+                mprime = mprime/days;
                 a = 2*m-mprime;
-                b = (2/(t-1))*(m-mprime);
+                b = (2/(days-1))*(m-mprime);
                 last.remove(0);
                 last.add(a+b*days);
                 lstForecast.add(a+b*days);
