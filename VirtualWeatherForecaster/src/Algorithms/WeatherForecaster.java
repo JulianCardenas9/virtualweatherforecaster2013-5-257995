@@ -12,25 +12,52 @@ import java.util.ArrayList;
  */
 public class WeatherForecaster {
     
-    public ArrayList<Double> Get(ArrayList<Double> last, int days ){
+    private double error = 0;
         
-        // calcular SimpleMovingAverage
+    public ArrayList<Double> Get(ArrayList<Double> last, int days) {
+
+        ArrayList<Double> rtn = null;
+        // calculate SimpleMovingAverage
         ArrayList<Double> lstSimpleMovingAverage = SimpleMovingAverage.List(last, days);
-        
-        // calcular DoubleMovingAverage
+        // calculate DoubleMovingAverage
         ArrayList<Double> lstDoubleMovingAverage = DoubleMovingAverage.Get(last, days);
-        // calcular DoubleMovingAverage 
-        ArrayList<Double> lstExponentialSmoothing = ExponentialSmoothing.Get(last,days);
-        
-        ArrayList<Double> lstDoubleExponentialSmoothing = DoubleExponentialSmoothing.Get(last,days);
-        
-        double errorDES= DoubleExponentialSmoothing.Geterror(last, lstDoubleExponentialSmoothing, days);
-                System.out.println(errorDES);
-        double errorES= ExponentialSmoothing.Geterror(last, lstExponentialSmoothing, days);
-                System.out.println(errorES);        
-                
-        //return lstExponentialSmoothing;
-        //return lstDoubleMovingAverage;
+        // calculate DoubleMovingAverage 
+        ArrayList<Double> lstExponentialSmoothing = ExponentialSmoothing.Get(last, days);
+        //calculate DoubleExponentialSmoothing
+        ArrayList<Double> lstDoubleExponentialSmoothing = DoubleExponentialSmoothing.Get(last, days);
+        setError((double) Error.GetError(last, lstSimpleMovingAverage, days));
+        rtn = lstSimpleMovingAverage;
+        double tmp = Error.GetError(last, lstDoubleMovingAverage, days);
+        if (tmp < getError()) {
+            setError(tmp);
+            rtn = lstDoubleMovingAverage;
+            tmp = Error.GetError(last, lstExponentialSmoothing, days);
+            System.out.println(error+"dma"+lstDoubleMovingAverage);
+        } else if (tmp < error) {
+            setError(tmp);
+            rtn = lstExponentialSmoothing;
+            tmp = Error.GetError(last, lstDoubleExponentialSmoothing, days);
+            System.out.println(error+"es");
+        } else if (tmp < error) {
+            setError(tmp);
+            rtn = lstDoubleExponentialSmoothing;
+            System.out.println(error+"des");
+        }
+        setError(Error.GetError(last, lstDoubleExponentialSmoothing, days));
         return lstDoubleExponentialSmoothing;
+        }
+
+    /**
+     * @return the error
+     */
+    public double getError() {
+        return error;
     }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(double error) {
+        this.error = error;
+}
 }
