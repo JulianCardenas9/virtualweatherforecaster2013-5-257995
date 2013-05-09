@@ -6,6 +6,7 @@ package Algorithms;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.*;
 /**
  *
  * @author Jaserranoj
@@ -27,13 +28,13 @@ public class DoubleExponentialSmoothing {
         double alpha = 0.5;
         double beta = 0.5;
          double init = 0;
-        
+         
         
         ArrayList<Double> ForecastAFt = new ArrayList<Double>();
         ArrayList<Double> ForecastFt = new ArrayList<Double>();
         ArrayList<Double> ForecastTt = new ArrayList<Double>();
         ArrayList<Double> last = (ArrayList) lastDays.clone();
-        
+       
        // for(int j=0;j<days;j++)
        // {
             int t=last.size();
@@ -60,5 +61,17 @@ public class DoubleExponentialSmoothing {
         
         return ForecastAFt;
     }
-     
+     public static double Geterror(ArrayList<Double> lastDays, ArrayList<Double> ForestDays, int days ){
+         ArrayList<Double> last = (ArrayList) lastDays.clone();
+        
+         ArrayList<Double> Forecast = (ArrayList) ForestDays.clone();
+         int n=last.size();
+         float sum=0;
+        for(int i=1 ; i < n; i++)
+                {
+                 sum+=Math.abs((Forecast.get(i) - last.get(i))/last.get(i));   
+                }
+    return (sum/n);
+    
+    }
 }

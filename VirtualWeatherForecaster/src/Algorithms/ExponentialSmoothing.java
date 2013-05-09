@@ -49,5 +49,18 @@ public class ExponentialSmoothing {
         return ForecastES;
     }
     
+    public static double Geterror(ArrayList<Double> lastDays, ArrayList<Double> ForestDays, int days ){
+         ArrayList<Double> last = (ArrayList) lastDays.clone();
+        
+         ArrayList<Double> Forecast = (ArrayList) ForestDays.clone();
+         int n=last.size();
+         float sum=0;
+        for(int i=1 ; i < n; i++)
+                {
+                 sum+=Math.abs((Forecast.get(i) - last.get(i))/last.get(i));   
+                }
+    return (sum/n);
     
+    }
 }
+
