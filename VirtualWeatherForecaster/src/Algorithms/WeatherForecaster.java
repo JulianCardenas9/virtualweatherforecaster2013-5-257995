@@ -31,10 +31,10 @@ public class WeatherForecaster {
         double esError = Error.GetError(last, lstExponentialSmoothing, days);
         double desError = Error.GetError(last, lstDoubleExponentialSmoothing, days);
         
-        System.out.println("smaError " + smaError + "::::"+lstDoubleMovingAverage);
+        System.out.println("smaError " + smaError + "::::"+lstSimpleMovingAverage);
         System.out.println("dmaError " + dmaError + "::::"+lstDoubleMovingAverage);
-        System.out.println("esError " + esError + "::::"+lstDoubleMovingAverage);
-        System.out.println("desError " + desError + "::::"+lstDoubleMovingAverage);
+        System.out.println("esError " + esError + "::::"+lstExponentialSmoothing);
+        System.out.println("desError " + desError + "::::"+lstDoubleExponentialSmoothing);
         
         //si sma es el de menor error
         if(smaError<dmaError && smaError<esError && smaError<desError)
