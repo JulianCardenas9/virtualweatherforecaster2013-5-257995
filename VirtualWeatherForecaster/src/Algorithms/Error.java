@@ -23,7 +23,7 @@ public class Error {
         //1/n(sum_n(abs(give-fore/give)))
         double error = 0;
          for (int i = 0; i < days; i++) {
-             error=+Math.abs((lastDays.get(i)-foreCast.get(i))/lastDays.get(i));
+             error=+Math.abs((double)(lastDays.get(i)-foreCast.get(i))/lastDays.get(i));
          }
         
         return error/days;

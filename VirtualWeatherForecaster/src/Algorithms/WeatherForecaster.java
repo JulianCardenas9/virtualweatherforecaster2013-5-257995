@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class WeatherForecaster {
     
     private double error = 0;
-        
+            
     public ArrayList<Double> Get(ArrayList<Double> last, int days) {
 
-        ArrayList<Double> rtn = null;
+        ArrayList<Double> lst = null;
         // calculate SimpleMovingAverage
         ArrayList<Double> lstSimpleMovingAverage = SimpleMovingAverage.List(last, days);
         // calculate DoubleMovingAverage
@@ -25,27 +25,41 @@ public class WeatherForecaster {
         ArrayList<Double> lstExponentialSmoothing = ExponentialSmoothing.Get(last, days);
         //calculate DoubleExponentialSmoothing
         ArrayList<Double> lstDoubleExponentialSmoothing = DoubleExponentialSmoothing.Get(last, days);
-        setError((double) Error.GetError(last, lstSimpleMovingAverage, days));
-        rtn = lstSimpleMovingAverage;
-        double tmp = Error.GetError(last, lstDoubleMovingAverage, days);
-        if (tmp < getError()) {
-            setError(tmp);
-            rtn = lstDoubleMovingAverage;
-            tmp = Error.GetError(last, lstExponentialSmoothing, days);
-            System.out.println(error+"dma"+lstDoubleMovingAverage);
-        } else if (tmp < error) {
-            setError(tmp);
-            rtn = lstExponentialSmoothing;
-            tmp = Error.GetError(last, lstDoubleExponentialSmoothing, days);
-            System.out.println(error+"es");
-        } else if (tmp < error) {
-            setError(tmp);
-            rtn = lstDoubleExponentialSmoothing;
-            System.out.println(error+"des");
+        
+        double smaError = Error.GetError(last, lstSimpleMovingAverage, days);
+        double dmaError = Error.GetError(last, lstDoubleMovingAverage, days);
+        double esError = Error.GetError(last, lstExponentialSmoothing, days);
+        double desError = Error.GetError(last, lstDoubleExponentialSmoothing, days);
+        
+        System.out.println("smaError " + smaError + "::::"+lstDoubleMovingAverage);
+        System.out.println("dmaError " + dmaError + "::::"+lstDoubleMovingAverage);
+        System.out.println("esError " + esError + "::::"+lstDoubleMovingAverage);
+        System.out.println("desError " + desError + "::::"+lstDoubleMovingAverage);
+        
+        //si sma es el de menor error
+        if(smaError<dmaError && smaError<esError && smaError<desError)
+        {
+            lst = lstSimpleMovingAverage;
+            error = smaError;
         }
-        setError(Error.GetError(last, lstDoubleExponentialSmoothing, days));
-        return lstDoubleExponentialSmoothing;
+        else if(dmaError<smaError && dmaError<esError && dmaError<desError)
+        {
+            lst = lstDoubleMovingAverage;
+            error = dmaError;
         }
+        else if(esError<smaError && esError<dmaError && esError<desError)
+        {
+            lst = lstExponentialSmoothing;
+            error = esError;
+        }
+        else if(desError<smaError && desError<dmaError && desError<esError)
+        {
+            lst = lstDoubleExponentialSmoothing;
+            error = desError;
+        }
+        
+        return lst;
+    }
 
     /**
      * @return the error
